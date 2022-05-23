@@ -18,16 +18,39 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [ListingController::class, 'index']);
 
 Route::post('/listings', [ListingController::class, 'store']);
-Route::get('/listings/create', [ListingController::class, 'create']);
 
-Route::get('/listings/{listing}/edit', [ListingController::class, 'edit'])->where('listing', '\d+');
-Route::get('/listings/{listing}', [ListingController::class, 'show'])->where('listing', '\d+');
+Route::get('/listings/create', [ListingController::class, 'create'])
+    ->middleware('auth');
 
-Route::put('listings/{listing}', [ListingController::class, 'update'])->where('listing', '\d+');
-Route::delete('listings/{listing}', [ListingController::class, 'destroy'])->where('listing', '\d+');
+Route::get('/listings/{listing}/edit', [ListingController::class, 'edit'])
+    ->where('listing', '\d+')
+    ->middleware('auth');
 
-Route::get('/register', [UserController::class, 'create']);
-Route::get('/login', [UserController::class, 'login']);
+Route::get('/listings/{listing}', [ListingController::class, 'show'])
+    ->where('listing', '\d+')
+    ->middleware('auth');
+
+Route::put('listings/{listing}', [ListingController::class, 'update'])
+    ->where('listing', '\d+')
+    ->middleware('auth');
+
+Route::delete('listings/{listing}', [ListingController::class, 'destroy'])
+    ->where('listing', '\d+')
+    ->middleware('auth');
+
+Route::get('/register', [UserController::class, 'create'])
+    ->middleware('guest');
+
+Route::get('/login', [UserController::class, 'login'])
+    ->name('login')
+    ->middleware('guest');
+
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+
 Route::post('/users', [UserController::class, 'store']);
-Route::post('/logout', [UserController::class, 'logout']);
+
+Route::post('/logout', [UserController::class, 'logout'])
+    ->middleware('auth');
+
+Route::get('/listings/manage', [ListingController::class, 'manage'])
+    ->middleware('auth');

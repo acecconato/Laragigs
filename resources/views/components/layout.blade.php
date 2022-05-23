@@ -26,7 +26,7 @@
             },
         };
     </script>
-    <title>LaraGigs | Find Laravel Jobs & Projects</title>
+    <title>Tickeeting</title>
 </head>
 <body class="mb-48">
 
@@ -39,13 +39,13 @@
     <ul class="flex space-x-6 mr-6 text-lg">
         @auth
             <li>
-            <span class="font-bold uppercase">
+            <span class="font-bold capitalize">
                 Welcome {{ auth()->user()->name }}
             </span>
             </li>
 
             <li>
-                <a href="/register" class="hover:text-laravel">
+                <a href="/listings/manage" class="hover:text-laravel">
                     <i class="fa-solid fa-gear"></i>
                     Manage Listings
                 </a>
@@ -59,7 +59,6 @@
                     </button>
                 </form>
             </li>
-
         @else
             <li>
                 <a href="/register" class="hover:text-laravel">
@@ -74,9 +73,7 @@
                     Login
                 </a>
             </li>
-
         @endauth
-
     </ul>
 </nav>
 

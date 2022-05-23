@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 
 class Listing extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'company', 'location', 'website', 'email', 'description', 'tags', 'logo'];
+    protected $fillable = ['title', 'company', 'location', 'website', 'email', 'description', 'tags', 'logo', 'user_id'];
 
     public function scopeFilter(Builder $query, array $filters)
     {
@@ -29,5 +28,10 @@ class Listing extends Model
         }
 
         return $query;
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
